@@ -54,6 +54,7 @@ WooCommerceAPI.prototype._setDefaultsOptions = function(opt) {
   this.queryStringAuth = opt.queryStringAuth || false;
   this.port            = opt.port || '';
   this.timeout         = opt.timeout;
+  this.forceBasicAuth  = opt.forceBasicAuth;
 };
 
 /**
@@ -166,7 +167,7 @@ WooCommerceAPI.prototype._request = function(method, endpoint, data, callback) {
     }
   };
 
-  if (this.isSsl) {
+  if (this.forceBasicAuth || this.isSsl) {
     if (this.queryStringAuth) {
       params.qs = {
         consumer_key: this.consumerKey,
